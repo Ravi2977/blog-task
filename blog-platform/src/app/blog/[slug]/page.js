@@ -366,24 +366,33 @@ export default function ReadBlogPage({ params }) {
         </div>
 
 
-        {/* Blog Content */}
+        {/* Blog Content + TOC */}
 
-        <div className="blog-content">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
 
-          {blocks.length > 0 ? (
-            blocks.map((block, index) => (
-              <BlogBlock
-                key={index}
-                block={block}
-              />
-            ))
-          ) : (
-            <div className="rounded-2xl border border-zinc-200 bg-white p-8 text-center">
-              <p className="text-sm text-zinc-500">
-                This blog has no readable content.
-              </p>
-            </div>
-          )}
+          {/* Main Content (3 parts) */}
+          <div className="blog-content lg:col-span-3">
+
+            {blocks.length > 0 ? (
+              blocks.map((block, index) => (
+                <BlogBlock
+                  key={index}
+                  block={block}
+                  id={`heading-${index}`}
+                />
+              ))
+            ) : (
+              <div className="rounded-2xl border border-zinc-200 bg-white p-8 text-center">
+                <p className="text-sm text-zinc-500">
+                  This blog has no readable content.
+                </p>
+              </div>
+            )}
+
+          </div>
+
+          {/* Table of Contents (1 part) */}
+          <TableOfContents blocks={blocks} />
 
         </div>
 
@@ -470,7 +479,7 @@ export default function ReadBlogPage({ params }) {
 /* Blog Block */
 /* ========================================================================= */
 
-function BlogBlock({ block }) {
+function BlogBlock({ block, id }) {
 
   if (!block) {
     return null;
@@ -492,7 +501,10 @@ function BlogBlock({ block }) {
 
   if (block.type === "heading") {
     return (
-      <h2 className="mb-5 mt-10 text-3xl font-bold leading-tight text-zinc-950">
+      <h2
+        id={id}
+        className="mb-5 mt-10 scroll-mt-24 text-3xl font-bold leading-tight text-zinc-950"
+      >
         {block.text}
       </h2>
     );
@@ -586,6 +598,56 @@ function BlogBlock({ block }) {
 
 
   return null;
+}
+
+
+/* ========================================================================= */
+/* Table of Contents */
+/* ========================================================================= */
+
+function TableOfContents({ blocks }) {
+
+  const headings = blocks
+    .map((block, index) => ({ block, index }))
+    .filter(({ block }) => block?.type === "heading");
+
+  if (headings.length === 0) {
+    return null;
+  }
+
+  const handleClick = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  return (
+    <aside className="hidden lg:col-span-1 lg:block">
+
+      <div className="sticky top-24 rounded-2xl border border-zinc-200 bg-white p-5">
+
+        <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+          Table of Contents
+        </p>
+
+       <nav className="space-y-2">
+          {headings.map(({ block, index }, i) => (
+            <button
+              key={index}
+              onClick={() => handleClick(`heading-${index}`)}
+              className="flex w-full items-start gap-2 text-left text-sm text-zinc-600 transition hover:text-zinc-900"
+            >
+              <span className="text-zinc-400 font-bold">{i + 1}.</span>
+              <span className="font-bold">{block.text}</span>
+            </button>
+          ))}
+        </nav>
+
+      </div>
+
+    </aside>
+  );
 }
 
 
