@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CommentsDrawer from "@/app/compoenents/blog/CommentsDrawer";
 
-const API_URL = "http://localhost:5001/api/blogs";
+const API_URL = "https://fed0-103-173-124-149.ngrok-free.app/api/blogs";
 
 export default function ReadBlogPage({ params }) {
   const [blog, setBlog] = useState(null);
@@ -40,6 +40,9 @@ export default function ReadBlogPage({ params }) {
           {
             method: "GET",
             cache: "no-store",
+            headers: {
+              "ngrok-skip-browser-warning": "true",
+            },
           }
         );
 
@@ -71,7 +74,7 @@ export default function ReadBlogPage({ params }) {
 
         setError(
           error.message ||
-            "Unable to load this blog. Please try again."
+          "Unable to load this blog. Please try again."
         );
       } finally {
         setLoading(false);
@@ -128,7 +131,7 @@ export default function ReadBlogPage({ params }) {
       if (!response.ok || !result?.success) {
         throw new Error(
           result?.message ||
-            "Failed to update like"
+          "Failed to update like"
         );
       }
 
@@ -159,7 +162,7 @@ export default function ReadBlogPage({ params }) {
 
       setLikeError(
         error.message ||
-          "Unable to update like."
+        "Unable to update like."
       );
 
     } finally {
@@ -398,11 +401,10 @@ export default function ReadBlogPage({ params }) {
             >
 
               <span
-                className={`text-2xl transition ${
-                  liked
+                className={`text-2xl transition ${liked
                     ? "text-red-500"
                     : "text-zinc-500"
-                }`}
+                  }`}
               >
                 {liked ? "♥" : "♡"}
               </span>
@@ -548,19 +550,17 @@ function BlogBlock({ block }) {
 
     return (
       <div
-        className={`my-10 flex flex-col items-center gap-8 md:flex-row ${
-          imageLeft
+        className={`my-10 flex flex-col items-center gap-8 md:flex-row ${imageLeft
             ? ""
             : "md:flex-row-reverse"
-        }`}
+          }`}
       >
 
         <div
           className="w-full md:w-[45%]"
           style={{
-            flexBasis: `${
-              block.width || 45
-            }%`,
+            flexBasis: `${block.width || 45
+              }%`,
           }}
         >
 

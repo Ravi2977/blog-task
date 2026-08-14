@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import WriteBlogButton from "./compoenents/blog/WriteBlogButton";
 
-const API_URL = "http://localhost:5001/api";
+const API_URL = "https://fed0-103-173-124-149.ngrok-free.app/api";
 
 const CATEGORIES = [
   "Technology",
@@ -57,6 +57,9 @@ export default function BlogList() {
 
       const response = await fetch(`${API_URL}/blogs?${params}`, {
         cache: "no-store",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
       });
 
       const result = await response.json();
@@ -86,7 +89,7 @@ export default function BlogList() {
     fetchBlogs(selectedCategory, 1, false);
   }, [selectedCategory, fetchBlogs]);
 
- const handleLoadMore = () => {
+  const handleLoadMore = () => {
     const nextPage = page + 1;
     setPage(nextPage);
     fetchBlogs(selectedCategory, nextPage, true);
@@ -114,7 +117,7 @@ export default function BlogList() {
     <main className="min-h-screen bg-zinc-50 px-5 ">
 
 
-        {/* Header */}
+      {/* Header */}
       <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
 
@@ -140,11 +143,10 @@ export default function BlogList() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition ${
-                  isActive
+                className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition ${isActive
                     ? "bg-zinc-900 text-white"
                     : "border border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50"
-                }`}
+                  }`}
               >
                 {cat}
               </button>
