@@ -1,0 +1,19 @@
+# Dependencies
+backend/node_modules/
+blog-platform/node_modules/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build
+backend/dist/
+blog-platform/dist/
+blog-platform/build/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
