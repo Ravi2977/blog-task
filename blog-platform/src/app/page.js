@@ -144,8 +144,8 @@ export default function BlogList() {
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
                 className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition ${isActive
-                    ? "bg-zinc-900 text-white"
-                    : "border border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50"
+                  ? "bg-zinc-900 text-white"
+                  : "border border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50"
                   }`}
               >
                 {cat}
@@ -260,17 +260,27 @@ function BlogCard({ blog }) {
           {blog.title}
         </h2>
 
-        <div className="mt-auto flex items-center gap-2 pt-4 text-xs text-zinc-500">
-          <span>{blog.author}</span>
-          <span className="text-zinc-300">·</span>
-          <span>{formatDate(blog.created_at)}</span>
-          {blog.read_minutes ? (
-            <>
-              <span className="text-zinc-300">·</span>
-              <span>{blog.read_minutes} min read</span>
-            </>
-          ) : null}
+        <div className="mt-auto pt-4">
+
+          <div className="flex items-center gap-2 text-xs text-zinc-500">
+            <span>{blog.author}</span>
+            <span className="text-zinc-300">·</span>
+            <span>{formatDate(blog.created_at)}</span>
+
+            {blog.read_minutes ? (
+              <>
+                <span className="text-zinc-300">·</span>
+                <span>{blog.read_minutes} min read</span>
+              </>
+            ) : null}
+          </div>
+
+          <div className="mt-3 flex items-center gap-4 text-sm text-zinc-500">
+            <span>❤️ {blog.like_count || 0}</span>
+          </div>
+
         </div>
+
       </div>
     </a>
   );
