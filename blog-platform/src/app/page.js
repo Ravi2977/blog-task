@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import WriteBlogButton from "./compoenents/blog/WriteBlogButton";
 
-const API_URL = "https://fed0-103-173-124-149.ngrok-free.app/api";
+const API_URL = "https://blogspace.calldrift.com/api";
 
 const CATEGORIES = [
   "Technology",

@@ -6,7 +6,7 @@ import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 
 const DRAFT_KEY = "blog_editor_draft_v1";
 const AUTOSAVE_DELAY_MS = 600;
-const CREATE_BLOG_API_URL = "https://fed0-103-173-124-149.ngrok-free.app/api/blogs"; // change to your full backend URL if it's on a different origin
+const CREATE_BLOG_API_URL = "https://blogspace.calldrift.com/api/blogs"; // change to your full backend URL if it's on a different origin
 
 const CATEGORIES = [
     "Technology",

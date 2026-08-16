@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CommentsDrawer from "@/app/compoenents/blog/CommentsDrawer";
 
-const API_URL = "https://fed0-103-173-124-149.ngrok-free.app/api/blogs";
+const API_URL = "https://blogspace.calldrift.com/api/blogs";
 
 export default function ReadBlogPage({ params }) {
   const [blog, setBlog] = useState(null);

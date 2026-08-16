@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const API_URL = "https://fed0-103-173-124-149.ngrok-free.app/api";
+const API_URL = "https://blogspace.calldrift.com/api";
 
 export default function CommentsDrawer({
     open,
